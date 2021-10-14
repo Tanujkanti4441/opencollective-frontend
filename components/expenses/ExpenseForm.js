@@ -73,11 +73,17 @@ const msg = defineMessages({
     id: 'ExpenseForm.StepPayeeInvoice',
     defaultMessage: 'Payee information',
   },
-  resetExpense: {
-    defaultMessage: 'Reset Form',
+  cancelEditExpense: {
+    defaultMessage: 'Cancel Edit',
   },
-  confirmResetExpense: {
-    defaultMessage: 'Are you sure you want to reset the expense form?',
+  confirmCancelEditExpense: {
+    defaultMessage: 'Are you sure you want to cancel the edits?',
+  },
+  clearExpenseForm: {
+    defaultMessage: 'Clear Form',
+  },
+  confirmClearExpenseForm: {
+    defaultMessage: 'Are you sure you want to clear the expense form?',
   },
 });
 
@@ -222,6 +228,7 @@ const ExpenseFormBody = ({
   // Only true when logged in and drafting the expense
   const [isOnBehalf, setOnBehalf] = React.useState(false);
   const [showResetModal, setShowResetModal] = React.useState(false);
+  const editingExpense = expense !== undefined;
 
   // Scroll to top when step changes
   React.useEffect(() => {
@@ -584,8 +591,12 @@ const ExpenseFormBody = ({
                   <ConfirmationModal
                     show
                     onClose={() => setShowResetModal(false)}
-                    header={formatMessage(msg.resetExpense)}
-                    body={formatMessage(msg.confirmResetExpense)}
+                    header={editingExpense ? formatMessage(msg.cancelEditExpense) : formatMessage(msg.clearExpenseForm)}
+                    body={
+                      editingExpense
+                        ? formatMessage(msg.confirmCancelEditExpense)
+                        : formatMessage(msg.confirmClearExpenseForm)
+                    }
                     continueHandler={() => {
                       setStep(STEPS.PAYEE);
                       resetForm({ values: expense || getDefaultExpense(collective) });
@@ -609,7 +620,9 @@ const ExpenseFormBody = ({
                     onClick={() => setShowResetModal(true)}
                   >
                     <Undo size={11} />
-                    <Span mx={1}>{formatMessage(msg.resetExpense)}</Span>
+                    <Span mx={1}>
+                      {editingExpense ? formatMessage(msg.cancelEditExpense) : formatMessage(msg.clearExpenseForm)}
+                    </Span>
                   </StyledButton>
                 )}
               </Flex>
