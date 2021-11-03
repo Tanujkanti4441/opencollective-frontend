@@ -166,15 +166,21 @@ describe('Contribution Flow: Guest contributions', () => {
       cy.get('button[data-cy="cf-next-step"]').click();
       cy.get('input[name=name]:invalid').should('have.length', 1); // Empty
       cy.get('input[name=email]:invalid').should('have.length', 1); // Empty
-      cy.get('textarea[name="location.address"]:invalid').should('have.length', 1); // Empty
       // TODO: We're not showing errors on the country select yet
       // cy.get('input[name="location.country"]:invalid').should('have.length', 1);
-
-      cy.get('input[name=name]').type('Rick Astley');
-      cy.get('input[name=email]').type(`{selectall}${secondEmail}`);
-      cy.get('textarea[name="location.address"]').type('323 Logic Street, Los Angeles');
+      cy.get('button[data-cy="cf-next-step"]').click();
       cy.get('[data-cy="cf-content"] [data-cy="country-select"]').click();
       cy.contains('[data-cy="select-option"]', 'France - FR').click();
+      cy.get('input[name="address1"]:invalid').should('have.length', 1); // Empty
+      cy.get('input[name="postalCode"]:invalid').should('have.length', 1); // Empty
+      cy.get('input[name="city"]:invalid').should('have.length', 1); // Empty
+
+      // Fill profile info
+      cy.get('input[name=name]').type('Rick Astley');
+      cy.get('input[name=email]').type(`{selectall}${secondEmail}`);
+      cy.get('input[name="address1"]').type('323 Logic Street');
+      cy.get('input[name="postalCode"]').type('83740');
+      cy.get('input[name="city"]').type("La Cadière d'Azur");
       cy.get('[data-cy=captcha] > div > iframe').then(recaptchaIframe => {
         const body = recaptchaIframe.contents();
         cy.wrap(body).find('#checkbox').should('be.visible').click();
