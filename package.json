@@ -191,7 +191,7 @@
     "eslint-plugin-graphql": "^4.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-react": "git://github.com/MichaelDeBoey/eslint-plugin-react.git#eslint-8",
+    "eslint-plugin-react": "git://github.com/MichaelDeBoey/eslint-plugin-react.git#e5b9f3543fd7aa3c50099f50f98e8b185679712f",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-styled-components-a11y": "0.0.34",
